@@ -1,3 +1,4 @@
+
 package com.manukulsh.url_shortener.service;
 
 import com.manukulsh.url_shortener.entity.Url;
@@ -32,6 +33,12 @@ public class UrlService {
         Url url = new Url(originalUrl, shortCode);
 
         return urlRepository.save(url);
+    }
+
+    public Url getByShortCode(String shortCode) {
+        return urlRepository.findByShortCode(shortCode)
+                .orElseThrow(() ->
+                        new RuntimeException("Short URL not found"));
     }
 
     private String generateShortCode() {
